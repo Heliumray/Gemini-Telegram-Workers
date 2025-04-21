@@ -1,4 +1,4 @@
-[English](README.md) | [简体中文](README_zh-cn.md) | [繁體中文](README_zh-tw.md)
+[English](README_en.md) | [简体中文](README_zh-cn.md) | [繁體中文](README_zh-tw.md)
 
 # Gemini Telegram Worker Bot - A Beginner's Guide
 
@@ -32,7 +32,14 @@ This bot allows you to:
 2.  **A Telegram Account:** You'll need a Telegram account to create and use your bot.
 3.  **A Telegram Bot Token:** This is like a password for your bot.  [Follow these steps to create a Telegram bot and get its token](https://core.telegram.org/bots#6-botfather).  You'll interact with BotFather to do this.
 4.  **A Google Gemini API Key:**  [Get one or more API keys from Google AI Studio](https://ai.google.dev/gemini-api/docs). You might need a Google Cloud account.
-5.  **Your Telegram User ID:**  You'll need this to become the bot's administrator.  Use the [@userinfobot](https://t.me/userinfobot) bot to find your Telegram User ID. Just start a chat with it and it will tell you your ID.
+5.  **Your Telegram User ID:**  You'll need this to become the bot's administrator. You'll also need the Group ID if you plan to use this bot in groups.
+
+    * **How to Get Your User ID and Group ID using @MoeryIDBot:**
+        * Start a chat with [@MoeryIDBot](https://t.me/MoeryIDBot) on Telegram.
+        * Simply type `/start` and send it to the bot. It will reply with your User ID.
+        * If you are in a group, add @MoeryIDBot to the group.
+        * Send `/start` in the group. The bot will reply with both your User ID and the Group ID.
+        *  (Optional) The source code for @MoeryIDBot is located in `_IDBot.workers`.
 
 ### Step-by-Step Setup Guide
 
@@ -56,11 +63,15 @@ This bot allows you to:
         const BOT_TOKEN = ""; // Telegram Bot Token
         const GEMINI_API_KEYS = ""; // Gemini API Keys, separated by commas
         const ADMIN_ID = 0; // Telegram Admin User ID
+        const LOG_STATUS = "disable"; // Enable or disable logging, "enable" or "disable"
+        const LOG_GROUP_ID = 0; // Telegram Group ID for logs
         ```
     *   Replace the empty strings `""` and `0` with your actual values:
         *   `BOT_TOKEN`:  Paste your Telegram bot token between the quotes (e.g., `const BOT_TOKEN = "123456:ABC-DEF1234ghiJklmNoPqRsTuvWxYz";`).
         *   `GEMINI_API_KEYS`: Paste your Gemini API keys, separated by commas if you have more than one (e.g., `const GEMINI_API_KEYS = "AIzaSy... , AIzaQy...";`).  Make sure there are *no* extra spaces after the commas.
         *   `ADMIN_ID`:  Enter your Telegram User ID (e.g., `const ADMIN_ID = 123456789;`).
+        *   `LOG_STATUS`:  This setting controls whether the bot sends logs to a Telegram group. By default, it is set to `"disable"`.  To enable logging, change it to `"enable"` and set `LOG_GROUP_ID`. **Important: consider the privacy implications before enabling logging.**
+        *   `LOG_GROUP_ID`: If you enable logging, you'll need to provide the Group ID where you want the logs to be sent. Use [@MoeryIDBot](https://t.me/MoeryIDBot) to find your Group ID as described above.
 
 4.  **Set the Telegram Webhook:**
     *   Open your web browser.
@@ -95,7 +106,18 @@ This bot allows you to:
     *   Make sure your Gemini API key is correct and that you've enabled the Gemini API in Google AI Studio.
     *   If you're using multiple keys, make sure they are separated by commas without extra spaces.
 
+### Logging
+
+The bot can send logs to a Telegram group, which is helpful for debugging and monitoring its activity.
+
+*   **`LOG_STATUS`:** Set to `"enable"` to turn on logging, or `"disable"` to turn it off (default: `"disable"`).
+*   **`LOG_GROUP_ID`:** If logging is enabled, set this to the Group ID of the Telegram group where you want the logs to be sent. Use [@MoeryIDBot](https://t.me/MoeryIDBot) to find your Group ID.
+
+**Important: Before enabling logging, be aware that the bot will send information about user interactions (including questions asked) to the logging group. Consider the privacy implications before enabling this feature.**
+
 ### Advanced Tips
 
 *   **Customize the bot:**  Edit the `worker.js` file to change the bot's behavior, welcome message, and more.
-*   
+*   **Learn JavaScript:**  Cloudflare Workers use JavaScript. Learning JavaScript will allow you to customize your bot even further.
+
+Happy botting!
